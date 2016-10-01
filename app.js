@@ -9,7 +9,9 @@ var views = require('./views.js');
 var app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
 app.use('/', views.homepage);

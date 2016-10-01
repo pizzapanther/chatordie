@@ -12,12 +12,17 @@ api.post('/login', function(request, response) {
   var username = request.body.username;
   if (username) {
     //todo: get or create
-    
+
     // really insecure toke :-)
-    return api.ok(request, response, {token: username});
+    return api.ok(request, response, {
+      token: username
+    });
   }
-  
+
   return api.badRequest(request, response, 'No Username');
 });
 
-module.exports = {'homepage': home, 'api': api};
+module.exports = {
+  'homepage': home,
+  'api': api
+};

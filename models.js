@@ -9,8 +9,14 @@ var UserSchema = mongoose.Schema({
     required: true,
     unique: true
   },
-  invites: [{type: ObjectId, ref: 'User' }],
-  friends: [{type: ObjectId, ref: 'User' }]
+  invites: [{
+    type: ObjectId,
+    ref: 'User'
+  }],
+  friends: [{
+    type: ObjectId,
+    ref: 'User'
+  }]
 });
 
 var User = mongoose.model('User', UserSchema);
