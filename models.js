@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+mongoose.Promise = require('q').Promise;
 mongoose.connect('mongodb://localhost/chatordie');
 
 var ObjectId = mongoose.Schema.Types.ObjectId;
