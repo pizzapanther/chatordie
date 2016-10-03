@@ -6,7 +6,7 @@ import begin
 import subprocess
 
 @begin.start
-def jsfmt (code_dir='.', include="*.js", format=False):
+def jsfmt (code_dir='.', include="*.js static/js/*.js", format=False):
   os.chdir(code_dir)
   if format:
     cmd = "node node_modules/.bin/jsfmt --write {}".format(include)

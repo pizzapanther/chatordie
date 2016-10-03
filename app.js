@@ -14,9 +14,11 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
-app.use('/', views.homepage);
+app.get('/', views.homepage);
 app.use('/api', views.api);
 app.use('/static', express.static(__dirname + '/static'));
+app.use('/dep', express.static(__dirname + '/node_modules'));
+app.get('/*', views.homepage);
 
 var port = process.env.PORT || '8000';
 app.listen(port, function() {

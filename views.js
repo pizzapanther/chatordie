@@ -4,12 +4,11 @@ var Q = require('q');
 
 var models = require('./models.js');
 
-var home = express.Router();
 var api = express.Router();
 
-home.get('/', function(request, response) {
-  response.send('Hello World!');
-});
+function homepage (request, response) {
+  response.sendFile(__dirname + '/static/index.html');
+}
 
 function error_response(request, response, message) {
   return function(error) {
@@ -75,7 +74,14 @@ api.post('/invite/accept', function(request, response) {
         var user = users[0];
         var friend = users[1];
 
-        user.invites.forEach();
+        var keep = [];
+        user.invites.forEach(function (invite) {
+          if (invite.username != friend.username) {
+            keep.push(invite);
+          }
+        });
+        user.invites = keep;
+
         user.friends.push(friend);
         friends.friends.push(user);
 
@@ -134,6 +140,7 @@ api.post('/invite', function(request, response) {
 });
 
 module.exports = {
-  'homepage': home,
-  'api': api
+  'homepage': homepage,
+  'api': api,
+  'error_response': error_response
 };
