@@ -6,7 +6,7 @@ var models = require('./models.js');
 
 var api = express.Router();
 
-function homepage (request, response) {
+function homepage(request, response) {
   response.sendFile(__dirname + '/static/index.html');
 }
 
@@ -75,7 +75,7 @@ api.post('/invite/accept', function(request, response) {
         var friend = users[1];
 
         var keep = [];
-        user.invites.forEach(function (invite) {
+        user.invites.forEach(function(invite) {
           if (invite.username != friend.username) {
             keep.push(invite);
           }

@@ -5,7 +5,7 @@ ChatApp.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
     .primaryPalette('deep-orange')
     .accentPalette('grey')
     .dark();
-    
+
   $routeProvider
     .when('/login', {
       templateUrl: '/static/tpl/login.html',
@@ -15,7 +15,9 @@ ChatApp.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
       templateUrl: '/static/tpl/chat.html',
       controller: 'ChatCtrl'
     })
-    .otherwise({redirectTo: '/login'});
+    .otherwise({
+      redirectTo: '/login'
+    });
 
   $locationProvider.html5Mode(true);
 });
