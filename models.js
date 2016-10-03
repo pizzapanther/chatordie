@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 mongoose.Promise = require('q').Promise;
-mongoose.connect('mongodb://localhost/chatordie');
+var mongo_url = process.env.MONGODB_URI || 'mongodb://localhost/chatordie';
+mongoose.connect(mongo_url);
 
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
