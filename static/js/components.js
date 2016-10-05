@@ -55,7 +55,9 @@ ChatApp.component('friendsList', {
     this.active = MessageService.active;
     this.chat_with = MessageService.chat_with;
     this.listener = () => {
-      $scope.$apply();
+      if(!$scope.$$phase) {
+        $scope.$apply();
+      }
     };
 
     UserService.listeners.set('friend-list', this.listener);
@@ -77,7 +79,9 @@ ChatApp.component('chat', {
     };
 
     this.listener = (conversation) => {
-      $scope.$apply();
+      if(!$scope.$$phase) {
+        $scope.$apply();
+      }
 
       if (conversation == this.active.on) {
         MessageService.messages[conversation].unread = false;
