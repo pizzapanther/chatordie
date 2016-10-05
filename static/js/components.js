@@ -78,11 +78,11 @@ ChatApp.component('chat', {
 
     this.listener = (conversation) => {
       $scope.$apply();
-      
+
       if (conversation == this.active.on) {
         MessageService.messages[conversation].unread = false;
       }
-      
+
       $timeout(function() {
         var e = document.querySelector('chat md-card.' + conversation + ' md-content');
         if (e) {
