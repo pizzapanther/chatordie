@@ -53,8 +53,14 @@ chat .form {
   width: 100%;
 }
 
+chat md-card {
+  width: 400px;
+  max-width: 400px;
+}
+
 chat md-content {
   height: 300px;
+  overflow-wrap: break-word;
 }
 
 chat .form md-input-container {

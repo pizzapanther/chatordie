@@ -70,12 +70,11 @@ ChatApp.component('chat', {
   controller: function($scope, $timeout, MessageService, SocketService) {
     this.messages = MessageService.messages;
     this.active = MessageService.active;
-    this.form = {};
 
     this.activate = MessageService.chat_with;
     this.send_message = (user) => {
-      SocketService.send_message(user, this.form.message);
-      this.form.message = '';
+      SocketService.send_message(user, this.messages[user].send_message);
+      this.messages[user].send_message = '';
     };
 
     this.listener = (conversation) => {
