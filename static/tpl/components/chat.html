@@ -5,7 +5,7 @@
 <div ng-if="$ctrl.messages._active" layout="column" layout-align="start start" layout-fill>
   <div flex layout="column" layout-fill>
     <md-content layout-padding>
-      <div ng-repeat="m in $ctrl.messages[$ctrl.messages._active]">
+      <div ng-repeat="m in $ctrl.messages[$ctrl.messages._active].messages">
         <strong>{{ m[0] }}:</strong> 
         {{ m[1] }}
       </div>

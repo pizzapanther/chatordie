@@ -112,9 +112,10 @@ ChatApp.service('SocketService', function (UserService, MessageService) {
     
     if (data.message) {
       if (!MessageService.messages[data.message.conversation]) {
-        MessageService.messages[data.message.conversation] = [];
+        MessageService.messages[data.message.conversation] = {messages: []};
       }
-      MessageService.messages[data.message.conversation].push([data.message.from, data.message.content]);
+      MessageService.messages[data.message.conversation].messages.push([data.message.from, data.message.content]);
+      MessageService.messages[data.message.conversation].unread = true;
       MessageService.update_listeners(data.message.conversation);
     }
   };
@@ -143,6 +144,11 @@ ChatApp.service('MessageService', function () {
   
   MessageService.chat_with = function (user) {
     MessageService.messages._active = user;
+    if (!MessageService.messages[user]) {
+      MessageService.messages[user] = {messages: []};
+    }
+    
+    MessageService.messages[user].unread = false;
   };
   
   return this;

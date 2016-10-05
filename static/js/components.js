@@ -58,6 +58,7 @@ ChatApp.component('friendsList', {
     };
 
     UserService.listeners.set('friend-list', this.listener);
+    MessageService.listeners.set('friend-list', this.listener);
   }
 });
 
@@ -74,6 +75,7 @@ ChatApp.component('chat', {
 
     this.listener = (conversation) => {
       if (conversation == this.messages._active) {
+        MessageService.messages[conversation].unread = false;
         $scope.$apply();
         $timeout(function() {
           var e = document.querySelector('chat md-content');

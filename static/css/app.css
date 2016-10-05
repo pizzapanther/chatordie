@@ -33,6 +33,22 @@ friends-list md-list-item.active {
   color: rgb(255,87,34);
 }
 
+@-webkit-keyframes blink {
+    from {
+        opacity: 1.0;
+    }
+    to {
+        opacity: 0.2;
+    }
+}
+
+friends-list md-list-item.unread {
+  -webkit-animation-name: blink;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: cubic-bezier(1.0, 0, 0, 1.0);
+  -webkit-animation-duration: 1.2s;
+}
+
 chat .form {
   width: 100%;
 }
