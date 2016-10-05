@@ -1,5 +1,9 @@
 var ChatApp = angular.module('ChatApp', ['ngMaterial', 'ngMessages', 'ngRoute']);
 
+function AuthRequired(UserService) {
+  return UserService.user;
+}
+
 ChatApp.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
   $mdThemingProvider.theme('default')
     .primaryPalette('deep-orange')
@@ -13,7 +17,10 @@ ChatApp.config(function($mdThemingProvider, $routeProvider, $locationProvider) {
     })
     .when('/chat', {
       templateUrl: '/static/tpl/chat.html',
-      controller: 'ChatCtrl'
+      controller: 'MainChatCtrl',
+      resolve: {
+        user: AuthRequired
+      }
     })
     .otherwise({
       redirectTo: '/login'
