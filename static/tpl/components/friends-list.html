@@ -9,7 +9,7 @@
       </md-button>
     </div>
     <md-list>
-      <md-list-item class="clickable" ng-class="{active: $ctrl.messages._active == friend.username, unread: $ctrl.messages[friend.username].unread}" ng-repeat="friend in $ctrl.user.friends" ng-click="$ctrl.chat_with(friend.username)">
+      <md-list-item class="clickable" ng-class="{active: $ctrl.active.on == friend.username, unread: $ctrl.messages[friend.username].unread}" ng-repeat="friend in $ctrl.user.friends" ng-click="$ctrl.chat_with(friend.username)">
         <div layout="row" layout-fill layout-align="start center">
           <div flex>
             {{ friend.username }}

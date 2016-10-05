@@ -52,6 +52,7 @@ ChatApp.component('friendsList', {
     };
 
     this.messages = MessageService.messages;
+    this.active = MessageService.active;
     this.chat_with = MessageService.chat_with;
     this.listener = () => {
       $scope.$apply();
@@ -66,22 +67,28 @@ ChatApp.component('chat', {
   templateUrl: '/static/tpl/components/chat.html',
   controller: function($scope, $timeout, MessageService, SocketService) {
     this.messages = MessageService.messages;
+    this.active = MessageService.active;
     this.form = {};
 
-    this.send_message = () => {
-      SocketService.send_message(this.messages._active, this.form.message);
+    this.activate = MessageService.chat_with;
+    this.send_message = (user) => {
+      SocketService.send_message(user, this.form.message);
       this.form.message = '';
     };
 
     this.listener = (conversation) => {
-      if (conversation == this.messages._active) {
+      $scope.$apply();
+      
+      if (conversation == this.active.on) {
         MessageService.messages[conversation].unread = false;
-        $scope.$apply();
-        $timeout(function() {
-          var e = document.querySelector('chat md-content');
-          e.scrollTop = e.scrollHeight;
-        });
       }
+      
+      $timeout(function() {
+        var e = document.querySelector('chat md-card.' + conversation + ' md-content');
+        if (e) {
+          e.scrollTop = e.scrollHeight;
+        }
+      });
     };
 
     MessageService.listeners.set('main-chat', this.listener);

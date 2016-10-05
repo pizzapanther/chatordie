@@ -53,6 +53,10 @@ chat .form {
   width: 100%;
 }
 
+chat md-content {
+  height: 300px;
+}
+
 chat .form md-input-container {
   margin: 0;
 }

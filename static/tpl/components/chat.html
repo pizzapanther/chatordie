@@ -1,24 +1,26 @@
-<div ng-if="!$ctrl.messages._active" layout-fill layout="column" layout-align="center center">
+<div ng-if="!$ctrl.active.on" layout-fill layout="column" layout-align="center center">
   <h3>Click on a friend to chat</h3>
   <img src="/static/img/yank.jpg" alt="">
 </div>
-<div ng-if="$ctrl.messages._active" layout="column" layout-align="start start" layout-fill>
-  <div flex layout="column" layout-fill>
-    <md-content layout-padding>
-      <div ng-repeat="m in $ctrl.messages[$ctrl.messages._active].messages">
-        <strong>{{ m[0] }}:</strong> 
-        {{ m[1] }}
-      </div>
-    </md-content>
-  </div>
-  <div class="form">
-    <form ng-submit="$ctrl.send_message()" name="chat_form" layout="row" layout-fill layout-align="end end" autocomplete="off">
-      <md-input-container flex>
-        <input ng-model="$ctrl.form.message" placeholder="chat text">
-      </md-input-container>
-      <div>
-        <md-button class="md-raised md-primary" type="submit">Send</md-button>
-      </div>
-    </form>
-  </div>
+<div ng-if="$ctrl.active.on" layout="row" layout-align="start start" layout-fill layout-wrap>
+  <md-card class="md-whiteframe-10dp {{ username }}" ng-repeat="(username, data) in $ctrl.messages" ng-click="$ctrl.activate(username)">
+    <div flex layout="column" layout-fill>
+      <md-content layout-padding>
+        <div ng-repeat="m in data.messages">
+          <strong>{{ m[0] }}:</strong> 
+          {{ m[1] }}
+        </div>
+      </md-content>
+    </div>
+    <div class="form" layout-padding>
+      <form ng-submit="$ctrl.send_message(username)" name="chat_form" layout="row" layout-fill layout-align="end end" autocomplete="off">
+        <md-input-container flex>
+          <input ng-model="$ctrl.form.message" placeholder="chat text">
+        </md-input-container>
+        <div>
+          <md-button class="md-raised md-primary" type="submit">Send</md-button>
+        </div>
+      </form>
+    </div>
+  </md-card>
 </div>

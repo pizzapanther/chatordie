@@ -134,6 +134,7 @@ ChatApp.service('MessageService', function () {
   var MessageService = this;
   
   MessageService.messages = {};
+  MessageService.active = {};
   MessageService.listeners = new Map();
   
   MessageService.update_listeners = function (conversation) {
@@ -143,7 +144,7 @@ ChatApp.service('MessageService', function () {
   };
   
   MessageService.chat_with = function (user) {
-    MessageService.messages._active = user;
+    MessageService.active.on = user;
     if (!MessageService.messages[user]) {
       MessageService.messages[user] = {messages: []};
     }
