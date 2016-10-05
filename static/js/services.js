@@ -12,6 +12,13 @@ ChatApp.service('ApiService', function($http, UserService) {
     });
   };
   
+  ApiService.remove_friend = function(username) {
+    return $http.post('/api/friend/remove', {
+      token: UserService.user.token,
+      remove: username
+    });
+  };
+  
   ApiService.accept_invite = function(username) {
     return $http.post('/api/invite/accept', {
       token: UserService.user.token,

@@ -13,7 +13,6 @@ friends-list {
 }
 
 friends-list .friends {
-  position: relative;
   min-height: 200px;
 }
 
@@ -26,14 +25,12 @@ friends-list h1 {
   background-color: #757575;
 }
 
-friends-list .button {
-  position: absolute;
-  bottom: 0;
-  right: 5px;
-}
-
 friends-list md-list-item.pad {
   padding: 5px 10px 5px 15px;
+}
+
+friends-list md-list-item.active {
+  color: rgb(255,87,34);
 }
 
 chat .form {

@@ -1,16 +1,23 @@
 <md-content>
   <div class="friends">
-    <h1>Friends</h1>
-    <div class="button">
-      <md-button class="md-fab md-mini" aria-label="Add Friend" ng-click="$ctrl.add_friend()">
-        <md-icon class="mdicons">add</md-icon>
+    <h1>
+      Friends
+    </h1>
+    <div class="button" layout="row" layout-align="center center">
+      <md-button class="md-raised md-primary" aria-label="Add Friend" ng-click="$ctrl.add_friend()">
+        <md-icon class="mdicons">add</md-icon> Friend
       </md-button>
     </div>
     <md-list>
-      <md-list-item class="clickable" ng-repeat="friend in $ctrl.user.friends" ng-click="$ctrl.chat_with(friend.username)">
+      <md-list-item class="clickable" ng-class="{active: $ctrl.messages._active == friend.username}" ng-repeat="friend in $ctrl.user.friends" ng-click="$ctrl.chat_with(friend.username)">
         <div layout="row" layout-fill layout-align="start center">
           <div flex>
             {{ friend.username }}
+          </div>
+          <div>
+            <md-button class="md-fab md-mini" aria-label="Remove Friend" ng-click="$ctrl.remove_friend(friend)">
+              <md-icon class="mdicons">clear</md-icon>
+            </md-button>
           </div>
         </div>
         <md-divider ></md-divider>
