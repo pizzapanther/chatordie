@@ -1,9 +1,38 @@
-<h1>Friends</h1>
-<div class="button">
-  <md-button class="md-fab md-mini" aria-label="Add Friend" ng-click="$ctrl.add_friend()">
-    <md-icon class="mdicons">add</md-icon>
-  </md-button>
-</div>
-<ul>
-  
-</ul>
+<md-content>
+  <div class="friends">
+    <h1>Friends</h1>
+    <div class="button">
+      <md-button class="md-fab md-mini" aria-label="Add Friend" ng-click="$ctrl.add_friend()">
+        <md-icon class="mdicons">add</md-icon>
+      </md-button>
+    </div>
+    <md-list>
+      <md-list-item class="clickable" ng-repeat="friend in $ctrl.user.friends" ng-click="$ctrl.chat_with(friend.username)">
+        <div layout="row" layout-fill layout-align="start center">
+          <div flex>
+            {{ friend.username }}
+          </div>
+        </div>
+        <md-divider ></md-divider>
+      </md-list-item>
+    </md-list>
+  </div>
+  <div class="invites">
+    <h1>Invites</h1>
+    <md-list>
+      <md-list-item class="pad" ng-repeat="invite in $ctrl.user.invites">
+        <div layout="row" layout-fill layout-align="start center">
+          <div flex>
+            {{ invite.username }}
+          </div>
+          <div>
+            <md-button class="md-fab md-mini" aria-label="Accept Invite" ng-click="$ctrl.accept_invite(invite)">
+              <md-icon class="mdicons">check</md-icon>
+            </md-button>
+          </div>
+        </div>
+        <md-divider ></md-divider>
+      </md-list-item>
+    </md-list>
+  </div>
+</md-content>

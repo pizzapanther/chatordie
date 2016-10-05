@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="ChatApp" ng-controller="ChatCtrl">
+<html lang="en" ng-app="ChatApp" ng-controller="AppCtrl">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +7,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
   
     <title>Chat or Die</title>
+    <link rel="shortcut icon" href="/favicon.ico">
     <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Roboto:400,700'>
     <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/dep/angular/angular-csp.css">
@@ -16,8 +17,9 @@
     <base href="/">
   </head>
   <body ng-cloak layout="column">
-    <md-toolbar layout="row" class="md-toolbar-tools">
-      <h1>Chat or Die</h1>
+    <md-toolbar layout="row" class="md-toolbar-tools" layout-align="start center">
+      <h1 flex>Chat or Die</h1>
+      <h2>{{ user.profile.username }}</h2>
     </md-toolbar>
 
     <div flex layout="row">
@@ -25,6 +27,7 @@
       </md-content>
     </div>
 
+    <script src="/dep/socket.io/node_modules/socket.io-client/socket.io.js"></script>
     <script src="/dep/angular/angular.min.js"></script>
     <script src="/dep/angular-animate/angular-animate.min.js"></script>
     <script src="/dep/angular-aria/angular-aria.min.js"></script>

@@ -1,1 +1,23 @@
-<h1>chat window</h1>
+<div ng-if="!$ctrl.messages._active" layout-fill layout="row" layout-align="center center">
+  <img src="/static/img/yank.jpg" alt="">
+</div>
+<div ng-if="$ctrl.messages._active" layout="column" layout-align="start start" layout-fill>
+  <div flex layout="column" layout-fill>
+    <md-content layout-padding>
+      <div ng-repeat="m in $ctrl.messages[$ctrl.messages._active]">
+        <strong>{{ m[0] }}:</strong> 
+        {{ m[1] }}
+      </div>
+    </md-content>
+  </div>
+  <div class="form">
+    <form ng-submit="$ctrl.send_message()" name="chat_form" layout="row" layout-fill layout-align="end end" autocomplete="off">
+      <md-input-container flex>
+        <input ng-model="$ctrl.form.message" placeholder="chat text">
+      </md-input-container>
+      <div>
+        <md-button class="md-raised md-primary" type="submit">Send</md-button>
+      </div>
+    </form>
+  </div>
+</div>

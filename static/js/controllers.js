@@ -1,17 +1,8 @@
-ChatApp.controller('ChatCtrl', function($scope, $mdDialog) {
-  $scope.show_error = function(message) {
-    $mdDialog.show(
-      $mdDialog.alert()
-        .clickOutsideToClose(true)
-        .title('Error')
-        .textContent(message)
-        .ariaLabel('Error')
-        .ok('OK')
-    );
-  };
+ChatApp.controller('AppCtrl', function($scope, UserService) {
+  $scope.user = UserService.user;
 });
 
-ChatApp.controller('LoginCtrl', function($scope, $location, ApiService, UserService) {
+ChatApp.controller('LoginCtrl', function($scope, $location, ApiService, UserService, DialogService) {
   $scope.form = {};
 
   $scope.do_login = function() {
@@ -20,7 +11,7 @@ ChatApp.controller('LoginCtrl', function($scope, $location, ApiService, UserServ
         UserService.set_user(response.data);
         $location.path('/chat');
       }).catch(function() {
-        $scope.show_error('Error logging in.');
+        DialogService.show_error('Error logging in.');
       });
     }
   };

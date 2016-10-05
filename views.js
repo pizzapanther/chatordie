@@ -2,6 +2,7 @@ var express = require('express');
 var express_api = require('express-api-helper');
 var Q = require('q');
 
+var main = require('./main.js');
 var models = require('./models.js');
 
 var api = express.Router();
@@ -22,9 +23,9 @@ api.post('/login', function(request, response) {
   if (username) {
     var promise = models.User.findOne({
       'username': username
-    }).exec();
+    }).populate('invites').populate('friends').exec();
     promise.then(function(user) {
-      console.log(user);
+      //console.log(user);
       if (!user) {
         user = new models.User({
           username: username
@@ -63,10 +64,10 @@ api.post('/invite/accept', function(request, response) {
   if (friend && request_user) {
     var p1 = models.User.findOne({
       'username': request_user
-    }).exec();
+    }).populate('invites').populate('friends').exec();
     var p2 = models.User.findOne({
       'username': friend
-    }).exec();
+    }).populate('friends').exec();
 
     var promise = Q.all([p1, p2]);
     promise.then(function(users) {
@@ -83,13 +84,18 @@ api.post('/invite/accept', function(request, response) {
         user.invites = keep;
 
         user.friends.push(friend);
-        friends.friends.push(user);
-
-        user.save().then(function() {
+        friend.friends.push(user);
+        
+        var s1 = friend.save();
+        var s2 = user.save();
+        var saves = Q.all([s1, s2]);
+        saves.then(function() {
           express_api.ok(request, response, {
             status: 'updated'
           });
-        // todo: send socket notification
+          
+          main.io.emit('updates:' + user.username, {'friends': user.friends, invites: user.invites});
+          main.io.emit('updates:' + friend.username, {'friends': friend.friends});
         }).catch(error_response('Database error'));
       } else {
         express_api.notFound(request, response);
@@ -112,7 +118,7 @@ api.post('/invite', function(request, response) {
     }).exec();
     var p2 = models.User.findOne({
       'username': invite
-    }).exec();
+    }).populate('invites').exec();
 
     var promise = Q.all([p1, p2]);
     promise.then(function(users) {
@@ -125,7 +131,7 @@ api.post('/invite', function(request, response) {
           express_api.ok(request, response, {
             status: 'added'
           });
-        // todo: send socket notification
+          main.io.emit('updates:' + invited.username, {'invites': invited.invites});
         }).catch(error_response('Database error'));
       } else {
         express_api.notFound(request, response);
